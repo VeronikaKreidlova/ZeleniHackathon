@@ -42,12 +42,7 @@ public class ZeleniTests {
 
         driver.quit();
     }
-
-    @Test
-    @DisplayName("logo should present on the main web page")
-    public void testHeaderLogo() {
-
-//        REQ-0020 – Header section
+    //    REQ-0020 – Header section
 //        Our header section is shared across all pages. It will consist of following:
 //        Logo
 //        Login feature
@@ -56,15 +51,35 @@ public class ZeleniTests {
 //        Header section is displayed at the top of the screen and it is „sticky“,
 //        meaning it will stick to the top, when user scrolls the page.
 
+    @Test
+    @DisplayName("logo is present on the main web page")
+    public void testHeaderLogo() {
 
         driver.navigate().to(Settings.baseUrl);
-        WebElement headerElement = driver.findElement(By.id("header_logo"));
-        String headerElementText = headerElement.getText();
+        WebElement headerElement = driver.findElement(By.cssSelector("#header_logo img"));
+        String haederlogoURL = headerElement.getAttribute("src");
 
-        String actual = headerElementText;
-        String expected = "header_logo";
+        String actual = haederlogoURL;
+        String expected = "http://www.czechitas-hackhaton.cz/img/logo.jpg";
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("sign in link is present")
+    public void testHeaderLoginFeature() {
+
+        driver.navigate().to(Settings.baseUrl);
+        WebElement headerElement = driver.findElement(By.cssSelector("#header .user_login"));
+        String hrefLogin = headerElement.getAttribute("href");
+        String actual = hrefLogin;
+        String expected = "http://www.czechitas-hackhaton.cz/en/my-account";
         assertEquals(expected, actual);
     }
+
+
+
+
 
 }
 
